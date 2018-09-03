@@ -17,6 +17,7 @@ services:
       - '443:443'
     volumes:
       - 'wordpress_data:/bitnami'
+      - ${WORDPRESS_THEME_LOCAL_PATH}:/bitnami/wordpress/wp-content/themes/${WORDPRESS_THEME_NAME}
     depends_on:
       - mariadb
     environment:

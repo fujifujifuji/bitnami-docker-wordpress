@@ -1,5 +1,24 @@
 [![CircleCI](https://circleci.com/gh/bitnami/bitnami-docker-wordpress/tree/master.svg?style=shield)](https://circleci.com/gh/bitnami/bitnami-docker-wordpress/tree/master)
 
+# Customize
+
+## theme development
+
+Sync local theme
+
+```
+$ cp .env.sapmle .env
+$ vi .env
+```
+Set local path and theme name.
+
+# Memo
+```
+$ docker-compose exec wordpress bash
+```
+
+------
+
 # What is WordPress?
 
 > WordPress is one of the most versatile open source content management systems on the market. WordPress is built for high performance and is scalable to many servers, has easy integration via REST, JSON, SOAP and other formats, and features a whopping 15,000 plugins to extend and customize the application for just about any type of website.
