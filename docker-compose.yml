@@ -1,17 +1,20 @@
-version: '2'
+version: '3'
+
 services:
-  mariadb:
-    image: 'bitnami/mariadb:latest'
+  mysql:
+    image: mysql:5.7
     volumes:
-      - 'mariadb_data:/bitnami'
+      - 'mysql_data:/bitnami'
+    ports:
+      - '4306:3306'
     environment:
-      - MARIADB_USER=bn_wordpress
-      - MARIADB_DATABASE=bitnami_wordpress
-      - ALLOW_EMPTY_PASSWORD=yes
+      MYSQL_DATABASE: bitnami_wordpress
+      MYSQL_USER: bn_wordpress
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      # ALLOW_EMPTY_PASSWORD: 'yes'
   wordpress:
     image: 'bitnami/wordpress:latest'
-    labels:
-      kompose.service.type: nodeport
     ports:
       - '80:80'
       - '443:443'
@@ -19,15 +22,17 @@ services:
       - 'wordpress_data:/bitnami'
       - ${WORDPRESS_THEME_LOCAL_PATH}:/bitnami/wordpress/wp-content/themes/${WORDPRESS_THEME_NAME}
     depends_on:
-      - mariadb
+      - mysql
     environment:
-      - MARIADB_HOST=mariadb
-      - MARIADB_PORT_NUMBER=3306
-      - WORDPRESS_DATABASE_USER=bn_wordpress
-      - WORDPRESS_DATABASE_NAME=bitnami_wordpress
-      - ALLOW_EMPTY_PASSWORD=yes
+      MYSQL_HOST: mysql
+      MYSQL_PORT_NUMBER: 3306
+      # WORDPRESS_DATABASE_USER: bn_wordpress
+      WORDPRESS_DATABASE_USER: root
+      WORDPRESS_DATABASE_PASSWORD: password
+      WORDPRESS_DATABASE_NAME: bitnami_wordpress
+      # ALLOW_EMPTY_PASSWORD: 'yes'
 volumes:
-  mariadb_data:
+  mysql_data:
     driver: local
   wordpress_data:
     driver: local
