@@ -10,6 +10,8 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
   wordpress:
     image: 'bitnami/wordpress:latest'
+    tty: true
+    stdin_open: true
     labels:
       kompose.service.type: nodeport
     ports:
